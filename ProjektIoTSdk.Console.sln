@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjektIoTSdk.Console", "ProjektIoTSdk.Console\ProjektIoTSdk.Console.csproj", "{14D5D2EB-16C6-4A49-87CA-4232818C1552}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjektIoTSdk.Device", "ProjektIoTSdk.Device\ProjektIoTSdk.Device.csproj", "{0C2CD303-6FA2-4186-9FF1-D828BD8E6BAA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{14D5D2EB-16C6-4A49-87CA-4232818C1552}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14D5D2EB-16C6-4A49-87CA-4232818C1552}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14D5D2EB-16C6-4A49-87CA-4232818C1552}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14D5D2EB-16C6-4A49-87CA-4232818C1552}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C2CD303-6FA2-4186-9FF1-D828BD8E6BAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C2CD303-6FA2-4186-9FF1-D828BD8E6BAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C2CD303-6FA2-4186-9FF1-D828BD8E6BAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C2CD303-6FA2-4186-9FF1-D828BD8E6BAA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {46AFB488-FB52-4ED8-B8ED-76B8BB5941C4}
+	EndGlobalSection
+EndGlobal

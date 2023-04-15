@@ -1,0 +1,142 @@
+{
+  "format": 1,
+  "restore": {
+    "A:\\VisualRepo\\ProjektIoTSdk.Console\\ProjektIoTSdk.Console\\ProjektIoTSdk.Console.csproj": {}
+  },
+  "projects": {
+    "A:\\VisualRepo\\ProjektIoTSdk.Console\\ProjektIoTSdk.Console\\ProjektIoTSdk.Console.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "A:\\VisualRepo\\ProjektIoTSdk.Console\\ProjektIoTSdk.Console\\ProjektIoTSdk.Console.csproj",
+        "projectName": "ProjektIoTSdk.Console",
+        "projectPath": "A:\\VisualRepo\\ProjektIoTSdk.Console\\ProjektIoTSdk.Console\\ProjektIoTSdk.Console.csproj",
+        "packagesPath": "C:\\Users\\1piot\\.nuget\\packages\\",
+        "outputPath": "A:\\VisualRepo\\ProjektIoTSdk.Console\\ProjektIoTSdk.Console\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\1piot\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "A:\\VisualRepo\\ProjektIoTSdk.Console\\ProjektIoTSdk.Device\\ProjektIoTSdk.Device.csproj": {
+                "projectPath": "A:\\VisualRepo\\ProjektIoTSdk.Console\\ProjektIoTSdk.Device\\ProjektIoTSdk.Device.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.Azure.Devices.Client": {
+              "target": "Package",
+              "version": "[1.41.3, )"
+            },
+            "Opc.UaFx.Client": {
+              "target": "Package",
+              "version": "[2.30.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "A:\\VisualRepo\\ProjektIoTSdk.Console\\ProjektIoTSdk.Device\\ProjektIoTSdk.Device.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "A:\\VisualRepo\\ProjektIoTSdk.Console\\ProjektIoTSdk.Device\\ProjektIoTSdk.Device.csproj",
+        "projectName": "ProjektIoTSdk.Device",
+        "projectPath": "A:\\VisualRepo\\ProjektIoTSdk.Console\\ProjektIoTSdk.Device\\ProjektIoTSdk.Device.csproj",
+        "packagesPath": "C:\\Users\\1piot\\.nuget\\packages\\",
+        "outputPath": "A:\\VisualRepo\\ProjektIoTSdk.Console\\ProjektIoTSdk.Device\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\1piot\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.Azure.Devices.Client": {
+              "target": "Package",
+              "version": "[1.41.3, )"
+            },
+            "Opc.UaFx.Client": {
+              "target": "Package",
+              "version": "[2.30.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

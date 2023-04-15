@@ -1,0 +1,12 @@
+A:\VisualRepo\ProjektIoTSdk.Console\ProjektIoTSdk.Device\bin\Debug\net6.0\ProjektIoTSdk.Device.deps.json
+A:\VisualRepo\ProjektIoTSdk.Console\ProjektIoTSdk.Device\bin\Debug\net6.0\ProjektIoTSdk.Device.dll
+A:\VisualRepo\ProjektIoTSdk.Console\ProjektIoTSdk.Device\bin\Debug\net6.0\ProjektIoTSdk.Device.pdb
+A:\VisualRepo\ProjektIoTSdk.Console\ProjektIoTSdk.Device\obj\Debug\net6.0\ProjektIoTSdk.Device.csproj.AssemblyReference.cache
+A:\VisualRepo\ProjektIoTSdk.Console\ProjektIoTSdk.Device\obj\Debug\net6.0\ProjektIoTSdk.Device.GeneratedMSBuildEditorConfig.editorconfig
+A:\VisualRepo\ProjektIoTSdk.Console\ProjektIoTSdk.Device\obj\Debug\net6.0\ProjektIoTSdk.Device.AssemblyInfoInputs.cache
+A:\VisualRepo\ProjektIoTSdk.Console\ProjektIoTSdk.Device\obj\Debug\net6.0\ProjektIoTSdk.Device.AssemblyInfo.cs
+A:\VisualRepo\ProjektIoTSdk.Console\ProjektIoTSdk.Device\obj\Debug\net6.0\ProjektIoTSdk.Device.csproj.CoreCompileInputs.cache
+A:\VisualRepo\ProjektIoTSdk.Console\ProjektIoTSdk.Device\obj\Debug\net6.0\ProjektIoTSdk.Device.dll
+A:\VisualRepo\ProjektIoTSdk.Console\ProjektIoTSdk.Device\obj\Debug\net6.0\refint\ProjektIoTSdk.Device.dll
+A:\VisualRepo\ProjektIoTSdk.Console\ProjektIoTSdk.Device\obj\Debug\net6.0\ProjektIoTSdk.Device.pdb
+A:\VisualRepo\ProjektIoTSdk.Console\ProjektIoTSdk.Device\obj\Debug\net6.0\ref\ProjektIoTSdk.Device.dll
