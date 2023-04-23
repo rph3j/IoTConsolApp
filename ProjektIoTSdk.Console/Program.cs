@@ -20,21 +20,25 @@ try
 
     JObject jsonObject = JObject.Parse(config);
 
-    int counter = ((int)jsonObject["CountOfDevices"]);
-    for (int i = 1; i <= counter; i++)
+    while (true)
     {
-        #region Conection
+        int counter = ((int)jsonObject["CountOfDevices"]);
+        for (int i = 1; i <= counter; i++)
+        {
+            #region Conection
 
-        string Key = jsonObject["conectionStrings"][i-1].ToString();
-        using var deviceClient = DeviceClient.CreateFromConnectionString(Key, TransportType.Mqtt);
-        await deviceClient.OpenAsync();
-        var device = new VirtualDevice(deviceClient);
+            string Key = jsonObject["conectionStrings"][i - 1].ToString();
+            using var deviceClient = DeviceClient.CreateFromConnectionString(Key, TransportType.Mqtt);
+            await deviceClient.OpenAsync();
+            var device = new VirtualDevice(deviceClient);
 
-        Console.Write("Connection succesful!");
-        Console.WriteLine();
+            Console.Write("Connection succesful!");
+            Console.WriteLine();
 
-        #endregion
-        await device.SendMessages(i);
+            #endregion
+            await device.SendMessages(i);
+        }
+        Thread.Sleep((int)jsonObject["CountOfDevices"]);
     }
 
     Console.WriteLine("Prase kay to continue...");

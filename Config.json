@@ -3,5 +3,6 @@
     "conectionStrings" : [
         "HostName=zajencia-IoT-23.azure-devices.net;DeviceId=Device01;SharedAccessKey=F5MFBFYHLsG8iAbKJUpe8iBg16JpW3DZvHMgEtj79jc=",
         "HostName=zajencia-IoT-23.azure-devices.net;DeviceId=Device02;SharedAccessKey=6OPiL9VxV//OtQboBWFYysH1HssrzTKAsg3lpitM80Q="
-    ]
+    ],
+    "Delay": 500
 }
