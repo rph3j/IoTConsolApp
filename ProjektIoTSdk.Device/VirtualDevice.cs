@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System.Net.Mime;
 using System.Text;
 using Microsoft.Azure.Amqp.Framing;
+using Org.BouncyCastle.Asn1.X500;
 
 namespace ProjektIoTSdk.Device
 {
@@ -28,33 +29,33 @@ namespace ProjektIoTSdk.Device
 
                 var commands = new OpcReadNode[]
                 {
-                    new OpcReadNode($"ns=2;s=Device {MachienNumber}/ProductionStatus", OpcAttribute.DisplayName),
+               
                     new OpcReadNode($"ns=2;s=Device {MachienNumber}/ProductionStatus"),
 
-                    new OpcReadNode($"ns=2;s=Device {MachienNumber}/WorkorderId", OpcAttribute.DisplayName),
                     new OpcReadNode($"ns=2;s=Device {MachienNumber}/WorkorderId"),
 
-                    new OpcReadNode($"ns=2;s=Device {MachienNumber}/Temperature", OpcAttribute.DisplayName),
                     new OpcReadNode($"ns=2;s=Device {MachienNumber}/Temperature"),
 
-                    new OpcReadNode($"ns=2;s=Device {MachienNumber}/GoodCount", OpcAttribute.DisplayName),
                     new OpcReadNode($"ns=2;s=Device {MachienNumber}/GoodCount"),
 
-                    new OpcReadNode($"ns=2;s=Device {MachienNumber}/BadCount", OpcAttribute.DisplayName),
                     new OpcReadNode($"ns=2;s=Device {MachienNumber}/BadCount"),
 
-                    new OpcReadNode($"ns=2;s=Device {MachienNumber}/DeviceError", OpcAttribute.DisplayName),
                     new OpcReadNode($"ns=2;s=Device {MachienNumber}/DeviceError"),
                 };
 
                 var job = client.ReadNodes(commands); // dane w tablicę
 
-                var d = "";
-                foreach (var item in job)
+                var data = new
                 {
-                    d += ($"{item.Value}': '{item.SourceTimestamp}");
-                }
-                var dataString = JsonConvert.SerializeObject(job);
+                    ProductionStatus = job.ElementAt(0).Value,
+                    WorkorderId = job.ElementAt(1).Value,
+                    temperature = job.ElementAt(2).Value,
+                    GoodCount = job.ElementAt(3).Value,
+                    BadCount = job.ElementAt(4).Value,
+                    DeviceError = job.ElementAt(5).Value,
+                };
+
+                var dataString = JsonConvert.SerializeObject(data);
 
                 Message eventMassage = new Message(Encoding.UTF8.GetBytes(dataString));
                 eventMassage.ContentType = MediaTypeNames.Application.Json;

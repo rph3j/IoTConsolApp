@@ -38,11 +38,11 @@ try
             #endregion
             await device.SendMessages(i);
         }
-        Thread.Sleep((int)jsonObject["CountOfDevices"]);
+        Thread.Sleep((int)jsonObject["Delay"]);
     }
 
-    Console.WriteLine("Prase kay to continue...");
-    Console.ReadLine();
+    //Console.WriteLine("Prase kay to continue...");
+    //Console.ReadLine();
 }
 catch (Exception e) 
 {
