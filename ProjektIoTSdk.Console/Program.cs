@@ -20,29 +20,23 @@ try
 
     JObject jsonObject = JObject.Parse(config);
 
-    while (true)
-    {
-        int counter = ((int)jsonObject["CountOfDevices"]);
-        for (int i = 1; i <= counter; i++)
-        {
-            #region Conection
+    string KeyI = jsonObject["conectionStrings"][0].ToString();
+    using var deviceClientI = DeviceClient.CreateFromConnectionString(KeyI, TransportType.Mqtt);
+    await deviceClientI.OpenAsync();
+    var deviceI = new VirtualDevice(deviceClientI, 1);
 
-            string Key = jsonObject["conectionStrings"][i - 1].ToString();
-            using var deviceClient = DeviceClient.CreateFromConnectionString(Key, TransportType.Mqtt);
-            await deviceClient.OpenAsync();
-            var device = new VirtualDevice(deviceClient);
+    string KeyII = jsonObject["conectionStrings"][1].ToString();
+    using var deviceClientII = DeviceClient.CreateFromConnectionString(KeyII, TransportType.Mqtt);
+    await deviceClientII.OpenAsync();
+    var deviceII = new VirtualDevice(deviceClientII, 2);
 
-            Console.Write("Connection succesful!");
-            Console.WriteLine();
+    await deviceI.InitializeHendlers();
+    await deviceII.InitializeHendlers();
+    await deviceI.SendMessages();
+    await deviceII.SendMessages();
 
-            #endregion
-            await device.SendMessages(i);
-        }
-        Thread.Sleep((int)jsonObject["Delay"]);
-    }
-
-    //Console.WriteLine("Prase kay to continue...");
-    //Console.ReadLine();
+    Console.WriteLine("Prase kay to continue...");
+    Console.ReadLine();
 }
 catch (Exception e) 
 {

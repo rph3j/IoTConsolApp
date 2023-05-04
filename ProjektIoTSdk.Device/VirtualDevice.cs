@@ -12,16 +12,18 @@ namespace ProjektIoTSdk.Device
     public class VirtualDevice
     {
         private readonly DeviceClient deviceClient;
+        private readonly int MachienNumber;
 
-        public VirtualDevice(DeviceClient deviceClient)
+        public VirtualDevice(DeviceClient deviceClient, int MachienNumber)
         {
             this.deviceClient = deviceClient;
+            this.MachienNumber = MachienNumber;
         }
 
 
         #region SendMessage
 
-        public async Task SendMessages(int MachienNumber)
+        public async Task SendMessages()
         {
             using (var client = new OpcClient("opc.tcp://localhost:4840/"))
             {
@@ -70,7 +72,7 @@ namespace ProjektIoTSdk.Device
         #endregion
 
         #region Emergancy Stop
-        public async Task EmergancyStop(int MachienNumber)
+        public async Task EmergancyStop()
         {
             using (var client = new OpcClient("opc.tcp://localhost:4840/"))
             {
@@ -84,7 +86,7 @@ namespace ProjektIoTSdk.Device
         #endregion
         #region Restart Error Status
 
-        public async Task RES(int MachienNumber)
+        public async Task RES()
         {
             using (var client = new OpcClient("opc.tcp://localhost:4840/"))
             {
@@ -102,8 +104,8 @@ namespace ProjektIoTSdk.Device
         {
             Console.WriteLine($"\t METHOD EXECUTED: {methodRequest.Name}");
 
-            var payload = JsonConvert.DeserializeAnonymousType(methodRequest.DataAsJson, new { MachineNumber = default(int) });
-            await RES(payload.MachineNumber);
+            var payload = JsonConvert.DeserializeAnonymousType(methodRequest.DataAsJson, new {});
+            await RES();
 
             return new MethodResponse(0);
         }
@@ -112,13 +114,29 @@ namespace ProjektIoTSdk.Device
         {
             Console.WriteLine($"\t METHOD EXECUTED: {methodRequest.Name}");
 
-            var payload = JsonConvert.DeserializeAnonymousType(methodRequest.DataAsJson, new { MachineNumber = default(int) });
-            await EmergancyStop(payload.MachineNumber);
+            var payload = JsonConvert.DeserializeAnonymousType(methodRequest.DataAsJson, new {});
+            await EmergancyStop();
+
+            return new MethodResponse(0);
+        }
+
+        private static async Task<MethodResponse> DefaultSerivceHandler(MethodRequest methodRequest, object userContext)
+        {
+            Console.WriteLine($"\t METHOD EXECUTED: {methodRequest.Name}");
+
+            await Task.Delay(1000);
 
             return new MethodResponse(0);
         }
 
         #endregion
+
+        public async Task InitializeHendlers()
+        {
+            await deviceClient.SetMethodDefaultHandlerAsync(DefaultSerivceHandler, deviceClient);
+            await deviceClient.SetMethodHandlerAsync("RES", RESHandler, deviceClient);
+            await deviceClient.SetMethodHandlerAsync("EmergancyStop", EmergancyStopHandler, deviceClient);
+        }
 
     }
 }
