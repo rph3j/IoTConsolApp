@@ -6,6 +6,7 @@ using System.Net.Mime;
 using System.Text;
 using Microsoft.Azure.Amqp.Framing;
 using Org.BouncyCastle.Asn1.X500;
+using Microsoft.Azure.Devices.Shared;
 
 namespace ProjektIoTSdk.Device
 {
@@ -131,11 +132,77 @@ namespace ProjektIoTSdk.Device
 
         #endregion
 
+        #region Device Twin
+
+        public async Task UpdateTwinAsync()
+        {
+            var twin = await deviceClient.GetTwinAsync();
+
+            Console.WriteLine($"\n Initil twin value received: \n{JsonConvert.SerializeObject(twin, Formatting.Indented)}");
+            Console.WriteLine();
+
+            var report = new TwinCollection();
+
+            #region Read data from machine
+
+            using (var client = new OpcClient("opc.tcp://localhost:4840/"))
+            {
+                client.Connect();
+                var commands = new OpcReadNode[]
+                {
+                    new OpcReadNode($"ns=2;s=Device {MachienNumber}/ProductionRate"),
+                    new OpcReadNode($"ns=2;s=Device {MachienNumber}/DeviceError")
+                };
+
+                var job = client.ReadNodes(commands);
+
+                report["ProductionRate"] = job.ElementAt(0).Value;
+                report["DeviceError"] = job.ElementAt(1).Value;
+                
+            }
+
+            #endregion
+
+            await deviceClient.UpdateReportedPropertiesAsync(report);
+        }
+
+        private async Task OnDesiredPropertyChange(TwinCollection desiredProperties, object _)
+        {
+            Console.WriteLine($"\tDesired property change\n\t {JsonConvert.SerializeObject(desiredProperties)}");
+            Console.WriteLine("\tSending current time as repreted property");
+
+            TwinCollection report = new TwinCollection();
+            
+
+            #region Read data from machine
+
+            using (var client = new OpcClient("opc.tcp://localhost:4840/"))
+            {
+                client.Connect();
+                var commands = new OpcReadNode[]
+                {
+                    new OpcReadNode($"ns=2;s=Device {MachienNumber}/ProductionRate"),
+                    new OpcReadNode($"ns=2;s=Device {MachienNumber}/DeviceError")
+                };
+
+                var job = client.ReadNodes(commands);
+
+                report["ProductionRate"] = job.ElementAt(0).Value;
+                report["DeviceError"] = job.ElementAt(1).Value;
+            }
+            #endregion
+
+            await deviceClient.UpdateReportedPropertiesAsync(report);
+        }
+        #endregion
+
         public async Task InitializeHendlers()
         {
             await deviceClient.SetMethodDefaultHandlerAsync(DefaultSerivceHandler, deviceClient);
             await deviceClient.SetMethodHandlerAsync("RES", RESHandler, deviceClient);
             await deviceClient.SetMethodHandlerAsync("EmergancyStop", EmergancyStopHandler, deviceClient);
+
+            await deviceClient.SetDesiredPropertyUpdateCallback(OnDesiredPropertyChange, deviceClient);
         }
 
     }

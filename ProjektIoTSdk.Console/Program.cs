@@ -8,35 +8,28 @@ using Microsoft.Azure.Amqp.Framing;
 using Newtonsoft.Json.Linq;
 
 
-string config;
+List<string> Keys = new List<string>();
+int DevicesCount = 0;
+
+#region Read Config file
+
 try
 {
-    #region Read Config file
+    string config;
+    
     using (var sr = new StreamReader("A:\\VisualRepo\\ProjektIoTSdk.Console\\Config.json"))
     {
         config = sr.ReadToEnd();
     }
-    #endregion
 
     JObject jsonObject = JObject.Parse(config);
-
-    string KeyI = jsonObject["conectionStrings"][0].ToString();
-    using var deviceClientI = DeviceClient.CreateFromConnectionString(KeyI, TransportType.Mqtt);
-    await deviceClientI.OpenAsync();
-    var deviceI = new VirtualDevice(deviceClientI, 1);
-
-    string KeyII = jsonObject["conectionStrings"][1].ToString();
-    using var deviceClientII = DeviceClient.CreateFromConnectionString(KeyII, TransportType.Mqtt);
-    await deviceClientII.OpenAsync();
-    var deviceII = new VirtualDevice(deviceClientII, 2);
-
-    await deviceI.InitializeHendlers();
-    await deviceII.InitializeHendlers();
-    await deviceI.SendMessages();
-    await deviceII.SendMessages();
-
-    Console.WriteLine("Prase kay to continue...");
-    Console.ReadLine();
+    
+    // add config data to program properties.
+    DevicesCount = (int)jsonObject["CountOfDevices"];
+    for (int i = 0; i < DevicesCount; i++)
+    {
+        Keys.Add(jsonObject["conectionStrings"][i].ToString());
+    }
 }
 catch (Exception e) 
 {
@@ -44,3 +37,19 @@ catch (Exception e)
     Console.WriteLine(e.Message); 
 }
 
+#endregion
+
+
+string KeyI = Keys[0];
+using var deviceClientI = DeviceClient.CreateFromConnectionString(KeyI, TransportType.Mqtt);
+await deviceClientI.OpenAsync();
+var deviceI = new VirtualDevice(deviceClientI, 1);
+
+await deviceI.InitializeHendlers();
+
+await deviceI.UpdateTwinAsync();
+
+await deviceI.SendMessages();
+
+Console.WriteLine("Prase kay to continue...");
+Console.ReadLine();
