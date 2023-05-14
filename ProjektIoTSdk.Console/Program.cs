@@ -8,8 +8,10 @@ using Microsoft.Azure.Amqp.Framing;
 using Newtonsoft.Json.Linq;
 
 
-List<string> Keys = new List<string>();
-int DevicesCount = 0;
+//List<string> Keys = new List<string>();
+//List<DeviceClient> Clients = new List<DeviceClient>();
+List<VirtualDevice> VirtualDevices = new List<VirtualDevice>();
+int Delay = 0;
 
 #region Read Config file
 
@@ -23,12 +25,25 @@ try
     }
 
     JObject jsonObject = JObject.Parse(config);
-    
+
     // add config data to program properties.
-    DevicesCount = (int)jsonObject["CountOfDevices"];
-    for (int i = 0; i < DevicesCount; i++)
+    int counter = ((int)jsonObject["CountOfDevices"]);
+    Delay = ((int)jsonObject["Delay"]);
+    for (int i = 1; i <= counter; i++)
     {
-        Keys.Add(jsonObject["conectionStrings"][i].ToString());
+        #region Conection
+
+        string Key = jsonObject["conectionStrings"][i - 1].ToString();
+        var deviceClient = DeviceClient.CreateFromConnectionString(Key, TransportType.Mqtt);
+        await deviceClient.OpenAsync();
+        var device = new VirtualDevice(deviceClient, i);
+
+        VirtualDevices.Add(device);
+
+        Console.Write("Connection succesful!");
+        Console.WriteLine();
+
+        #endregion
     }
 }
 catch (Exception e) 
@@ -39,17 +54,19 @@ catch (Exception e)
 
 #endregion
 
-
-string KeyI = Keys[0];
-using var deviceClientI = DeviceClient.CreateFromConnectionString(KeyI, TransportType.Mqtt);
-await deviceClientI.OpenAsync();
-var deviceI = new VirtualDevice(deviceClientI, 1);
-
-await deviceI.InitializeHendlers();
-
-await deviceI.UpdateTwinAsync();
-
-await deviceI.SendMessages();
+foreach(var device in VirtualDevices)
+{
+    await device.InitializeHendlers();
+}
+while (true)
+{
+    foreach (var device in VirtualDevices)
+    {
+        await device.UpdateTwinAsync();
+        await device.SendMessages();
+    }
+    Thread.Sleep(Delay);
+}
 
 Console.WriteLine("Prase kay to continue...");
 Console.ReadLine();
