@@ -19,7 +19,7 @@ try
 {
     string config;
     
-    using (var sr = new StreamReader("A:\\VisualRepo\\ProjektIoTSdk.Console\\Config.json"))
+    using (var sr = new StreamReader("..\\..\\..\\..\\Config.json"))
     {
         config = sr.ReadToEnd();
     }
