@@ -172,23 +172,32 @@ namespace ProjektIoTSdk.Device
             Console.WriteLine("\tSending current time as repreted property");
 
             TwinCollection report = new TwinCollection();
-            
+
 
             #region Read data from machine
 
             using (var client = new OpcClient("opc.tcp://localhost:4840/"))
             {
                 client.Connect();
-                var commands = new OpcReadNode[]
+                if(desiredProperties.Contains("DeviceError") == true)
                 {
-                    new OpcReadNode($"ns=2;s=Device {MachienNumber}/ProductionRate"),
-                    new OpcReadNode($"ns=2;s=Device {MachienNumber}/DeviceError")
-                };
+                    var com = new OpcWriteNode($"ns=2;s=Device {MachienNumber}", desiredProperties.Contains("DeviceError"));
+                    report["DeviceError"] = com;
+                }
+                else
+                {
+                    var com = new OpcReadNode($"ns=2;s=Device {MachienNumber}/DeviceError");
+                    report["DeviceError"] = com;
+                }
 
-                var job = client.ReadNodes(commands);
-
-                report["ProductionRate"] = job.ElementAt(0).Value;
-                report["DeviceError"] = job.ElementAt(1).Value;
+                if(desiredProperties.Contains("ProductionRate") == true)
+                {
+                    var com = new OpcWriteNode($"ns=2;s=Device {MachienNumber}", desiredProperties.Contains("ProductionRate"));
+                    report["ProductionRate"] = com;
+                }else{
+                    var com = new OpcReadNode($"ns=2;s=Device {MachienNumber}/ProductionRate");
+                    report["ProductionRate"] = com;
+                }
             }
             #endregion
 
